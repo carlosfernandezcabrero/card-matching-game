@@ -5,7 +5,7 @@ import '../node_modules/pattern.css/dist/pattern.css'
 import { Card } from './components/card'
 import { Dialog } from './components/dialog'
 
-const IMAGE_REPOSITORY_URL = '/public/images'
+const IMAGE_REPOSITORY_URL = '/images'
 const IMAGES = [
   `${IMAGE_REPOSITORY_URL}/git.svg`,
   `${IMAGE_REPOSITORY_URL}/html5.svg`,
