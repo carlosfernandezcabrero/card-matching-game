@@ -49,7 +49,7 @@ export const App: FunctionComponent = () => {
   return (
     <>
       <header class="text-center py-8 mb-12">
-        <h1 class="text-5xl text-[#DEA01E] font-semibold tracking-wide">
+        <h1 class="text-5xl font-semibold tracking-wide">
           Empareja las cartas
         </h1>
       </header>
