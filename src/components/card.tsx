@@ -11,7 +11,14 @@ interface Props {
 }
 
 export const Card: FunctionComponent<Props> = memo(
+  ({
     setSelected,
+    isCorrect = false,
+    isNotCorrect = false
+  }) => {
+    let borderColor = 'border-[#96ADCF]'
+    if (isCorrect) borderColor = 'border-green-600'
+    if (isNotCorrect) borderColor = 'border-red-600'
 
     function handleClick(): void {
       setSelected((prev) => [...prev, imageName])
