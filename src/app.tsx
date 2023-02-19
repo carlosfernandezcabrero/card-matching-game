@@ -5,19 +5,18 @@ import { useEffect } from 'preact/hooks'
 import { Card } from './components/card'
 import { selectedAtom } from './states'
 
-const IMAGE_REPOSITORY_URL = 'https://icongr.am'
-const IMAGE_SIZE = 80
+const IMAGE_REPOSITORY_URL = '/public/images'
 const IMAGES = [
-  `${IMAGE_REPOSITORY_URL}/devicon/git-original.svg?size=${IMAGE_SIZE}&color=currentColor`,
-  `${IMAGE_REPOSITORY_URL}/devicon/html5-original-wordmark.svg?size=${IMAGE_SIZE}&color=currentColor`,
-  `${IMAGE_REPOSITORY_URL}/devicon/nodejs-original.svg?size=${IMAGE_SIZE}&color=currentColor`,
-  `${IMAGE_REPOSITORY_URL}/devicon/php-original.svg?size=${IMAGE_SIZE}&color=currentColor`,
-  `${IMAGE_REPOSITORY_URL}/devicon/typescript-original.svg?size=${IMAGE_SIZE}&color=currentColor`,
-  `${IMAGE_REPOSITORY_URL}/devicon/javascript-original.svg?size=${IMAGE_SIZE}&color=currentColor`,
-  `${IMAGE_REPOSITORY_URL}/devicon/python-original.svg?size=${IMAGE_SIZE}&color=currentColor`,
-  `${IMAGE_REPOSITORY_URL}/devicon/java-original.svg?size=${IMAGE_SIZE}&color=currentColor`,
-  `${IMAGE_REPOSITORY_URL}/devicon/redis-original.svg?size=${IMAGE_SIZE}&color=currentColor`,
-  `${IMAGE_REPOSITORY_URL}/devicon/css3-original.svg?size=${IMAGE_SIZE}&color=currentColor`
+  `${IMAGE_REPOSITORY_URL}/git.svg`,
+  `${IMAGE_REPOSITORY_URL}/html5.svg`,
+  `${IMAGE_REPOSITORY_URL}/nodejs.svg`,
+  `${IMAGE_REPOSITORY_URL}/php.svg`,
+  `${IMAGE_REPOSITORY_URL}/typescript.svg`,
+  `${IMAGE_REPOSITORY_URL}/javascript.svg`,
+  `${IMAGE_REPOSITORY_URL}/python.svg`,
+  `${IMAGE_REPOSITORY_URL}/java.svg`,
+  `${IMAGE_REPOSITORY_URL}/redis.svg`,
+  `${IMAGE_REPOSITORY_URL}/css3.svg`
 ]
   .flatMap((icon) => [`a|${icon}`, `b|${icon}`])
   .sort(() => Math.random() - 0.5)
@@ -57,10 +56,8 @@ export const App: FunctionComponent = () => {
             const isSelected =
               selected.includes(image) || allSelectedValue.includes(image)
             const imageUrl = isSelected
-              ? url
-              : `${IMAGE_REPOSITORY_URL}/clarity/search.svg?size=${IMAGE_SIZE}&color=currentColor`
-            const isDisabled = isSelected || selected.length === 2
-            const isCorrect = allSelectedValue.includes(image)
+              ? image.split('|')[1]
+              : `${IMAGE_REPOSITORY_URL}/search.svg`
 
             return (
               <Card
