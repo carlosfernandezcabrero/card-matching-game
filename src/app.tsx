@@ -74,6 +74,24 @@ export const App: FunctionComponent = () => {
         </div>
       </main>
 
+      {allSelected.value.length === IMAGES.length && (
+        <Dialog>
+          <header>
+            <h2 class="text-5xl text-center font-extrabold text-green-600">
+              ¡Felicidades!
+            </h2>
+          </header>
+          <div class="my-16" />
+          <footer>
+            <button
+              class="border-2 border-[#112D4E] font-bold py-2 px-4 rounded mt-6 block mx-auto text-lg bg-[#F9F7F7] hover:bg-[#DBE2EF] text-gray-800 active:scale-110"
+              onClick={resetGame}
+            >
+              Volver a jugar
+            </button>
+          </footer>
+        </Dialog>
+      )}
     </>
   )
 }
