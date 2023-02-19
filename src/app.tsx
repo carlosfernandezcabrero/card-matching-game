@@ -68,6 +68,7 @@ export const App: FunctionComponent = () => {
               <Card
                 key={image}
                 url={imageUrl}
+                isFlipped={isSelected}
                 isCorrect={allSelected.value.includes(image)}
                 isNotCorrect={
                   detectFail.value && selected.value.includes(image)

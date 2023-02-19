@@ -5,6 +5,7 @@ import { selectedAtom } from '../states'
 
 interface Props {
   url: string
+  isFlipped: boolean
   setSelected: () => void
   isDisabled?: boolean
   isCorrect?: boolean
@@ -12,6 +13,7 @@ interface Props {
 
 export const Card: FunctionComponent<Props> = memo(
   ({
+    isFlipped,
     setSelected,
     isCorrect = false,
     isNotCorrect = false
