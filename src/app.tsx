@@ -23,25 +23,28 @@ const IMAGES = [
   .sort(() => Math.random() - 0.5)
 
 export const App: FunctionComponent = () => {
-  const [selected, setSelected] = useAtom(selectedAtom)
+  const selected = useSignal<string[]>([])
   const allSelected = useSignal<string[]>([])
-  const allSelectedValue = allSelected.value
+
+  function handleSelected(imageName: string): void {
+    selected.value = [...selected.value, imageName]
+  }
 
   useEffect(() => {
-    if (selected.length === 2) {
-      const [first, second] = selected
+    if (selected.value.length === 2) {
+      const [first, second] = selected.value
 
       if (first.split('|')[1] === second.split('|')[1]) {
         allSelected.value = [...allSelectedValue, ...selected]
-        setSelected([])
+        selected.value = []
       } else {
         const timeoutId = setTimeout(() => {
-          setSelected([])
+          selected.value = []
           clearTimeout(timeoutId)
         }, 1_100)
       }
     }
-  }, [selected])
+  }, [selected.value])
 
   return (
     <>
@@ -56,7 +59,7 @@ export const App: FunctionComponent = () => {
           {IMAGES.map((image) => {
             const url = image.split('|')[1]
             const isSelected =
-              selected.includes(image) || allSelectedValue.includes(image)
+              selected.value.includes(image) ||
             const imageUrl = isSelected
               ? image.split('|')[1]
               : `${IMAGE_REPOSITORY_URL}/search.svg`
@@ -65,9 +68,7 @@ export const App: FunctionComponent = () => {
               <Card
                 key={image}
                 url={imageUrl}
-                imageName={image}
-                isDisabled={isDisabled}
-                isCorrect={isCorrect}
+                setSelected={() => handleSelected(image)}
               />
             )
           })}

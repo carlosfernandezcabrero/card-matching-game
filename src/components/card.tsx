@@ -5,14 +5,13 @@ import { selectedAtom } from '../states'
 
 interface Props {
   url: string
-  imageName: string
+  setSelected: () => void
   isDisabled?: boolean
   isCorrect?: boolean
 }
 
 export const Card: FunctionComponent<Props> = memo(
-  ({ url, imageName, isDisabled = false, isCorrect = false }) => {
-    const [, setSelected] = useAtom(selectedAtom)
+    setSelected,
 
     function handleClick(): void {
       setSelected((prev) => [...prev, imageName])
@@ -20,7 +19,7 @@ export const Card: FunctionComponent<Props> = memo(
 
     return (
       <button
-        onClick={handleClick}
+        onClick={setSelected}
         disabled={isDisabled}
         class={`bg-gray-700 p-2 border ${
           isCorrect ? 'border-green-500' : 'border-[#96ADCF]'
