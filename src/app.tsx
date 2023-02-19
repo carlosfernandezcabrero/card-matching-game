@@ -2,6 +2,7 @@ import { useSignal } from '@preact/signals'
 import { useAtom } from 'jotai'
 import type { FunctionComponent } from 'preact'
 import { useEffect } from 'preact/hooks'
+import '../node_modules/pattern.css/dist/pattern.css'
 import { Card } from './components/card'
 import { selectedAtom } from './states'
 
