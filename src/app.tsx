@@ -1,6 +1,9 @@
 import { useSignal } from '@preact/signals'
+import { useAtom } from 'jotai'
 import type { FunctionComponent } from 'preact'
 import { useEffect } from 'preact/hooks'
+import { Card } from './components/card'
+import { selectedAtom } from './states'
 
 const IMAGE_REPOSITORY_URL = 'https://icongr.am'
 const IMAGE_SIZE = 80
@@ -20,22 +23,25 @@ const IMAGES = [
   .sort(() => Math.random() - 0.5)
 
 export const App: FunctionComponent = () => {
-  const selected = useSignal<string[]>([])
+  const [selected, setSelected] = useAtom(selectedAtom)
   const allSelected = useSignal<string[]>([])
-  const selectedValue = selected.value
   const allSelectedValue = allSelected.value
 
   useEffect(() => {
-    if (selectedValue.length === 2) {
-      const [first, second] = selectedValue
+    if (selected.length === 2) {
+      const [first, second] = selected
 
       if (first.split('|')[1] === second.split('|')[1]) {
-        allSelected.value = [...allSelectedValue, ...selectedValue]
+        allSelected.value = [...allSelectedValue, ...selected]
+        setSelected([])
+      } else {
+        const timeoutId = setTimeout(() => {
+          setSelected([])
+          clearTimeout(timeoutId)
+        }, 1_100)
       }
-
-      setTimeout(() => (selected.value = []), 600)
     }
-  }, [selectedValue])
+  }, [selected])
 
   return (
     <>
@@ -49,21 +55,19 @@ export const App: FunctionComponent = () => {
           {IMAGES.map((image) => {
             const url = image.split('|')[1]
             const isSelected =
-              selectedValue.includes(image) || allSelectedValue.includes(image)
-
+              selected.includes(image) || allSelectedValue.includes(image)
             const imageUrl = isSelected
               ? url
               : `${IMAGE_REPOSITORY_URL}/clarity/search.svg?size=${IMAGE_SIZE}&color=currentColor`
+            const isDisabled = isSelected || selected.length === 2
 
             return (
-              <button
+              <Card
                 key={image}
-                onClick={() => (selected.value = [...selectedValue, image])}
-                disabled={isSelected || selectedValue.length === 2}
-                class="bg-gray-700 p-2 border border-[#96ADCF] rounded-md shadow-lg break-inside-avoid mb-7 block"
-              >
-                <img src={imageUrl} alt="icon" />
-              </button>
+                url={imageUrl}
+                isDisabled={isDisabled}
+                imageName={image}
+              />
             )
           })}
         </div>
