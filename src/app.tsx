@@ -60,13 +60,15 @@ export const App: FunctionComponent = () => {
               ? url
               : `${IMAGE_REPOSITORY_URL}/clarity/search.svg?size=${IMAGE_SIZE}&color=currentColor`
             const isDisabled = isSelected || selected.length === 2
+            const isCorrect = allSelectedValue.includes(image)
 
             return (
               <Card
                 key={image}
                 url={imageUrl}
-                isDisabled={isDisabled}
                 imageName={image}
+                isDisabled={isDisabled}
+                isCorrect={isCorrect}
               />
             )
           })}
