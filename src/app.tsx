@@ -1,5 +1,4 @@
 import { useSignal } from '@preact/signals'
-import { useAtom } from 'jotai'
 import type { FunctionComponent } from 'preact'
 import { useEffect } from 'preact/hooks'
 import '../node_modules/pattern.css/dist/pattern.css'
@@ -25,6 +24,12 @@ const IMAGES = [
 export const App: FunctionComponent = () => {
   const selected = useSignal<string[]>([])
   const allSelected = useSignal<string[]>([])
+  const detectFail = useSignal<boolean>(false)
+
+  function resetGame(): void {
+    selected.value = []
+    allSelected.value = []
+  }
 
   function handleSelected(imageName: string): void {
     selected.value = [...selected.value, imageName]
@@ -35,11 +40,15 @@ export const App: FunctionComponent = () => {
       const [first, second] = selected.value
 
       if (first.split('|')[1] === second.split('|')[1]) {
-        allSelected.value = [...allSelectedValue, ...selected]
+        allSelected.value = [...allSelected.value, ...selected.value]
         selected.value = []
       } else {
+        detectFail.value = true
+
         const timeoutId = setTimeout(() => {
           selected.value = []
+          detectFail.value = false
+
           clearTimeout(timeoutId)
         }, 1_100)
       }
@@ -57,9 +66,9 @@ export const App: FunctionComponent = () => {
       <main role="main" class="px-8 flex justify-center">
         <div class="columns-5 gap-x-7">
           {IMAGES.map((image) => {
-            const url = image.split('|')[1]
             const isSelected =
               selected.value.includes(image) ||
+              allSelected.value.includes(image)
             const imageUrl = isSelected
               ? image.split('|')[1]
               : `${IMAGE_REPOSITORY_URL}/search.svg`
@@ -69,6 +78,7 @@ export const App: FunctionComponent = () => {
                 key={image}
                 url={imageUrl}
                 isFlipped={isSelected}
+                isDisabled={isSelected || selected.value.length === 2}
                 isCorrect={allSelected.value.includes(image)}
                 isNotCorrect={
                   detectFail.value && selected.value.includes(image)

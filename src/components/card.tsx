@@ -1,7 +1,5 @@
-import { useAtom } from 'jotai'
 import type { FunctionComponent } from 'preact'
 import { memo } from 'preact/compat'
-import { selectedAtom } from '../states'
 
 interface Props {
   url: string
@@ -9,12 +7,15 @@ interface Props {
   setSelected: () => void
   isDisabled?: boolean
   isCorrect?: boolean
+  isNotCorrect?: boolean
 }
 
 export const Card: FunctionComponent<Props> = memo(
   ({
+    url,
     isFlipped,
     setSelected,
+    isDisabled = false,
     isCorrect = false,
     isNotCorrect = false
   }) => {
@@ -22,17 +23,14 @@ export const Card: FunctionComponent<Props> = memo(
     if (isCorrect) borderColor = 'border-green-600'
     if (isNotCorrect) borderColor = 'border-red-600'
 
-    function handleClick(): void {
-      setSelected((prev) => [...prev, imageName])
-    }
+    let bgColor = 'bg-[#DBE2EF]'
+    if (isFlipped) bgColor = 'bg-blue-50'
 
     return (
       <button
         onClick={setSelected}
         disabled={isDisabled}
-        class={`bg-gray-700 p-2 border ${
-          isCorrect ? 'border-green-500' : 'border-[#96ADCF]'
-        } rounded-md shadow-lg break-inside-avoid mb-7 block`}
+        class={`${bgColor} p-2 border-2 ${borderColor} rounded-md shadow-md break-inside-avoid mb-7 block card`}
       >
         <img src={url} alt="icon" />
       </button>
