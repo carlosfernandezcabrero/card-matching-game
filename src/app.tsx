@@ -49,6 +49,7 @@ export const App: FunctionComponent = () => {
           Empareja las cartas
         </h1>
       </header>
+
       <main role="main" class="px-8 flex justify-center">
         <div class="columns-5 gap-x-7">
           {IMAGES.map((image) => {
@@ -71,6 +72,7 @@ export const App: FunctionComponent = () => {
           })}
         </div>
       </main>
+
     </>
   )
 }
