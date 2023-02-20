@@ -83,6 +83,9 @@ export const App: FunctionComponent = () => {
                 isNotCorrect={
                   detectFail.value && selected.value.includes(image)
                 }
+                isNotHighlighted={
+                  !selected.value.includes(image) && detectFail.value
+                }
                 setSelected={() => handleSelected(image)}
               />
             )

@@ -8,6 +8,7 @@ interface Props {
   isDisabled?: boolean
   isCorrect?: boolean
   isNotCorrect?: boolean
+  isNotHighlighted?: boolean
 }
 
 export const Card: FunctionComponent<Props> = memo(
@@ -17,10 +18,14 @@ export const Card: FunctionComponent<Props> = memo(
     setSelected,
     isDisabled = false,
     isCorrect = false,
-    isNotCorrect = false
+    isNotCorrect = false,
+    isNotHighlighted = false
   }) => {
     let borderColor = 'border-[#96ADCF]'
     let bgColor = 'bg-[#DBE2EF]'
+    let highlightedStyle = 'opacity-100'
+
+    if (isNotHighlighted) highlightedStyle = 'opacity-60'
 
     if (!url.includes('search')) {
       if (isCorrect) borderColor = 'border-green-600'
@@ -32,7 +37,7 @@ export const Card: FunctionComponent<Props> = memo(
       <button
         onClick={setSelected}
         disabled={isDisabled}
-        class={`${bgColor} p-[4px] border-2 ${borderColor} rounded-md shadow-md break-inside-avoid mb-[15px] sm:mb-[28px] block card`}
+        class={`${bgColor} p-[4px] border-2 ${borderColor} rounded-md shadow-md break-inside-avoid mb-[15px] sm:mb-[28px] block card ${highlightedStyle}`}
       >
         <img src={url} alt="icon" width={70} height={70} />
       </button>
