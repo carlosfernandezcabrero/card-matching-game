@@ -20,11 +20,13 @@ export const Card: FunctionComponent<Props> = memo(
     isNotCorrect = false
   }) => {
     let borderColor = 'border-[#96ADCF]'
-    if (isCorrect) borderColor = 'border-green-600'
-    if (isNotCorrect) borderColor = 'border-red-600'
-
     let bgColor = 'bg-[#DBE2EF]'
-    if (isFlipped) bgColor = 'bg-blue-50'
+
+    if (!url.includes('search')) {
+      if (isCorrect) borderColor = 'border-green-600'
+      if (isNotCorrect) borderColor = 'border-red-600'
+      if (isFlipped) bgColor = 'bg-blue-50'
+    }
 
     return (
       <button
