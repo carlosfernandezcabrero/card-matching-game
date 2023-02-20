@@ -64,7 +64,7 @@ export const App: FunctionComponent = () => {
       </header>
 
       <main role="main" class="px-8 flex justify-center">
-        <div class="columns-5 gap-x-7">
+        <div class="columns-5 gap-x-[20px]">
           {IMAGES.map((image) => {
             const isSelected =
               selected.value.includes(image) ||
