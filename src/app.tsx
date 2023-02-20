@@ -57,13 +57,18 @@ export const App: FunctionComponent = () => {
 
   return (
     <>
-      <header class="text-center py-8 mb-12">
+      <header class="text-center pt-8 pb-4">
         <h1 class="text-5xl font-semibold tracking-wide">
           Empareja las cartas
         </h1>
       </header>
 
       <main role="main" class="px-4">
+        <section class="mb-12 text-center">
+          <p class="text-color-body">Nivel: Principiante</p>
+          <p class="text-color-body">Tiempo restante: 04:30</p>
+        </section>
+
         <section class="flex justify-center">
           <div class="columns-4 gap-x-[15px] sm:columns-5 sm:gap-x-[28px]">
             {IMAGES.map((image) => {

@@ -9,7 +9,7 @@
       sans-serif;
     height: 100vh;
 
-    @apply bg-background;
+    @apply bg-background text-2xl;
   }
 
   #app {
