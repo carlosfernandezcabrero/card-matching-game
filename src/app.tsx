@@ -63,34 +63,36 @@ export const App: FunctionComponent = () => {
         </h1>
       </header>
 
-      <main role="main" class="px-8 flex justify-center">
-        <div class="columns-4 gap-x-[15px] sm:columns-5 sm:gap-x-[28px]">
-          {IMAGES.map((image) => {
-            const isSelected =
-              selected.value.includes(image) ||
-              allSelected.value.includes(image)
-            const imageUrl = isSelected
-              ? image.split('|')[1]
-              : '/images/search.svg'
+      <main role="main" class="px-4">
+        <section class="flex justify-center">
+          <div class="columns-4 gap-x-[15px] sm:columns-5 sm:gap-x-[28px]">
+            {IMAGES.map((image) => {
+              const isSelected =
+                selected.value.includes(image) ||
+                allSelected.value.includes(image)
+              const imageUrl = isSelected
+                ? image.split('|')[1]
+                : '/images/search.svg'
 
-            return (
-              <Card
-                key={image}
-                url={imageUrl}
-                setSelected={() => handleSelected(image)}
-                isFlipped={isSelected}
-                isDisabled={isSelected || selected.value.length === 2}
-                isCorrect={allSelected.value.includes(image)}
-                isNotCorrect={
-                  detectFail.value && selected.value.includes(image)
-                }
-                isNotHighlighted={
-                  !selected.value.includes(image) && detectFail.value
-                }
-              />
-            )
-          })}
-        </div>
+              return (
+                <Card
+                  key={image}
+                  url={imageUrl}
+                  setSelected={() => handleSelected(image)}
+                  isFlipped={isSelected}
+                  isDisabled={isSelected || selected.value.length === 2}
+                  isCorrect={allSelected.value.includes(image)}
+                  isNotCorrect={
+                    detectFail.value && selected.value.includes(image)
+                  }
+                  isNotHighlighted={
+                    !selected.value.includes(image) && detectFail.value
+                  }
+                />
+              )
+            })}
+          </div>
+        </section>
       </main>
 
       {allSelected.value.length === IMAGES.length && (
