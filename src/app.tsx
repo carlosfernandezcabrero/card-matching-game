@@ -77,6 +77,7 @@ export const App: FunctionComponent = () => {
               <Card
                 key={image}
                 url={imageUrl}
+                setSelected={() => handleSelected(image)}
                 isFlipped={isSelected}
                 isDisabled={isSelected || selected.value.length === 2}
                 isCorrect={allSelected.value.includes(image)}
@@ -86,7 +87,6 @@ export const App: FunctionComponent = () => {
                 isNotHighlighted={
                   !selected.value.includes(image) && detectFail.value
                 }
-                setSelected={() => handleSelected(image)}
               />
             )
           })}

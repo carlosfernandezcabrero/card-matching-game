@@ -3,8 +3,8 @@ import { memo } from 'preact/compat'
 
 interface Props {
   url: string
-  isFlipped: boolean
   setSelected: () => void
+  isFlipped?: boolean
   isDisabled?: boolean
   isCorrect?: boolean
   isNotCorrect?: boolean
@@ -14,8 +14,8 @@ interface Props {
 export const Card: FunctionComponent<Props> = memo(
   ({
     url,
-    isFlipped,
     setSelected,
+    isFlipped = false,
     isDisabled = false,
     isCorrect = false,
     isNotCorrect = false,
