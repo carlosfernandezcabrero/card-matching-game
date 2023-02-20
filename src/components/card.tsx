@@ -32,7 +32,7 @@ export const Card: FunctionComponent<Props> = memo(
       <button
         onClick={setSelected}
         disabled={isDisabled}
-        class={`${bgColor} p-[4px] border-2 ${borderColor} rounded-md shadow-md break-inside-avoid mb-[15px] lg:mb-[30px] block card`}
+        class={`${bgColor} p-[4px] border-2 ${borderColor} rounded-md shadow-md break-inside-avoid mb-[15px] sm:mb-[28px] block card`}
       >
         <img src={url} alt="icon" width={70} height={70} />
       </button>
