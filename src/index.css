@@ -20,6 +20,7 @@
     color: #112d4e;
   }
 
-  .card {
+  .dialog {
+    box-shadow: #d2effd 12px 12px;
   }
 }
