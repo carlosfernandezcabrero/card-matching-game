@@ -5,19 +5,19 @@ import '../node_modules/pattern.css/dist/pattern.css'
 import { Card } from './components/card'
 import { Dialog } from './components/dialog'
 
-const IMAGE_REPOSITORY_URL = '/images'
 const IMAGES = [
-  `${IMAGE_REPOSITORY_URL}/git.svg`,
-  `${IMAGE_REPOSITORY_URL}/html5.svg`,
-  `${IMAGE_REPOSITORY_URL}/nodejs.svg`,
-  `${IMAGE_REPOSITORY_URL}/php.svg`,
-  `${IMAGE_REPOSITORY_URL}/typescript.svg`,
-  `${IMAGE_REPOSITORY_URL}/javascript.svg`,
-  `${IMAGE_REPOSITORY_URL}/python.svg`,
-  `${IMAGE_REPOSITORY_URL}/java.svg`,
-  `${IMAGE_REPOSITORY_URL}/redis.svg`,
-  `${IMAGE_REPOSITORY_URL}/css3.svg`
+  'git.svg',
+  'html5.svg',
+  'nodejs.svg',
+  'php.svg',
+  'typescript.svg',
+  'javascript.svg',
+  'python.svg',
+  'java.svg',
+  'redis.svg',
+  'css3.svg'
 ]
+  .map((icon) => `/images/${icon}`)
   .flatMap((icon) => [`a|${icon}`, `b|${icon}`])
   .sort(() => Math.random() - 0.5)
 
@@ -71,7 +71,7 @@ export const App: FunctionComponent = () => {
               allSelected.value.includes(image)
             const imageUrl = isSelected
               ? image.split('|')[1]
-              : `${IMAGE_REPOSITORY_URL}/search.svg`
+              : '/images/search.svg'
 
             return (
               <Card
