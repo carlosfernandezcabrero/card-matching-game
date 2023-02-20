@@ -1,4 +1,4 @@
-import { useSignal } from '@preact/signals'
+import { useComputed, useSignal } from '@preact/signals'
 import type { FunctionComponent } from 'preact'
 import { useEffect } from 'preact/hooks'
 import '../node_modules/pattern.css/dist/pattern.css'
@@ -20,11 +20,24 @@ const IMAGES = [
   .map((icon) => `/images/${icon}`)
   .flatMap((icon) => [`a|${icon}`, `b|${icon}`])
   .sort(() => Math.random() - 0.5)
+const ONE_SECOND = 1_000
+const INITIAL_TIME_LEFT = 300 * ONE_SECOND
+
+const getTimeFormatted = (time: number): string =>
+  new Intl.DateTimeFormat('es-ES', {
+    minute: '2-digit',
+    second: '2-digit'
+  }).format(new Date(time))
 
 export const App: FunctionComponent = () => {
   const selected = useSignal<string[]>([])
   const allSelected = useSignal<string[]>([])
   const detectFail = useSignal<boolean>(false)
+  const timeLeftInMilliseconds = useSignal<number>(INITIAL_TIME_LEFT)
+
+  const timeLeftDate = useComputed(() =>
+    getTimeFormatted(timeLeftInMilliseconds.value)
+  )
 
   function resetGame(): void {
     selected.value = []
@@ -34,6 +47,21 @@ export const App: FunctionComponent = () => {
   function handleSelected(imageName: string): void {
     selected.value = [...selected.value, imageName]
   }
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      let actualTimeLeft = (timeLeftInMilliseconds.value -= ONE_SECOND)
+
+      if (actualTimeLeft <= 0) {
+        actualTimeLeft = 0
+        clearInterval(intervalId)
+      }
+
+      timeLeftInMilliseconds.value = actualTimeLeft
+    }, ONE_SECOND)
+
+    return () => clearInterval(intervalId)
+  }, [])
 
   useEffect(() => {
     if (selected.value.length === 2) {
@@ -66,7 +94,18 @@ export const App: FunctionComponent = () => {
       <main role="main" class="px-4">
         <section class="mb-12 text-center">
           <p class="text-color-body">Nivel: Principiante</p>
-          <p class="text-color-body">Tiempo restante: 04:30</p>
+          <p class="text-color-body">
+            Tiempo restante:{' '}
+            <span
+              class={`${
+                timeLeftInMilliseconds.value < 61_000
+                  ? 'text-red-600 font-bold'
+                  : ''
+              }`}
+            >
+              {timeLeftDate}
+            </span>
+          </p>
         </section>
 
         <section class="flex justify-center">
