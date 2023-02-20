@@ -34,6 +34,7 @@ export const App: FunctionComponent = () => {
   const allSelected = useSignal<string[]>([])
   const detectFail = useSignal<boolean>(false)
   const timeLeftInMilliseconds = useSignal<number>(INITIAL_TIME_LEFT)
+  const showWinnerDialog = useSignal<boolean>(false)
 
   const timeLeftDate = useComputed(() =>
     getTimeFormatted(timeLeftInMilliseconds.value)
@@ -55,6 +56,11 @@ export const App: FunctionComponent = () => {
       if (actualTimeLeft <= 0) {
         actualTimeLeft = 0
         clearInterval(intervalId)
+      }
+
+      if (allSelected.value.length === IMAGES.length) {
+        clearInterval(intervalId)
+        showWinnerDialog.value = true
       }
 
       timeLeftInMilliseconds.value = actualTimeLeft
@@ -139,14 +145,21 @@ export const App: FunctionComponent = () => {
         </section>
       </main>
 
-      {allSelected.value.length === IMAGES.length && (
+      {showWinnerDialog.value && (
         <Dialog>
           <header>
             <h2 class="text-5xl text-center font-extrabold text-green-600">
               ¡Felicidades!
             </h2>
           </header>
-          <div class="my-16" />
+          <div class="my-14 text-center">
+            <p>Tiempo tardado en resolver el nivel</p>
+            <p class="text-5xl font-bold text-[#3F72AF]">
+              {getTimeFormatted(
+                INITIAL_TIME_LEFT - timeLeftInMilliseconds.value
+              )}
+            </p>
+          </div>
           <footer>
             <button
               class="border-2 border-[#112D4E] font-bold py-2 px-4 rounded mt-6 block mx-auto text-base bg-[#3F72AF] hover:bg-[#112D4E] text-white active:scale-110"
