@@ -23,4 +23,23 @@
   .dialog {
     box-shadow: #d2effd 12px 12px;
   }
+
+  .blink {
+    animation-name: flicker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes flicker {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }

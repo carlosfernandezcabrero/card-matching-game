@@ -98,20 +98,28 @@ export const App: FunctionComponent = () => {
       </header>
 
       <main role="main" class="px-4">
-        <section class="mb-12 text-center">
-          <p class="text-color-body">Nivel: Principiante</p>
-          <p class="text-color-body">
-            Tiempo restante:{' '}
-            <span
-              class={`${
+        <section class="mb-12 flex justify-around sm:justify-center sm:gap-x-24">
+          <div class="text-center">
+            <p class="text-color-body text-xl font-bold">Nivel</p>
+            <p class="text-color-body">Principiante</p>
+          </div>
+          <div class="text-center">
+            <p class="text-color-body text-xl font-bold">Tiempo</p>
+            <p
+              class={`text-color-body ${
                 timeLeftInMilliseconds.value < 61_000
                   ? 'text-red-600 font-bold'
+                  : ''
+              } ${
+                timeLeftInMilliseconds.value < 31_000 &&
+                timeLeftInMilliseconds.value > 0
+                  ? 'blink'
                   : ''
               }`}
             >
               {timeLeftDate}
-            </span>
-          </p>
+            </p>
+          </div>
         </section>
 
         <section class="flex justify-center">
